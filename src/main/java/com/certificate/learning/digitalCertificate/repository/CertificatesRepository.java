@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.security.cert.Certificate;
+import java.sql.Blob;
+import java.sql.Clob;
 import java.util.List;
 
 @Repository
@@ -20,13 +23,10 @@ public interface CertificatesRepository extends CrudRepository<Certificates,Inte
     @Query("update Certificates p set p.certificatetest =?2 where p.aliasname =?1")
     public void updateByAlias(String alias, String certificatetest);
 
-    @Transactional
-    @Modifying
-    public void deleteById(Integer id);
-
     @Query("select p from Certificates p  where p.username like :name")
     public List<Certificates> getCertByUser(@Param("name") String username);
-
+    
+    
 
 
 }

@@ -1,18 +1,20 @@
 package com.certificate.learning.digitalCertificate.certManagement;
+import java.io.*;
+
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.util.Date;
+import java.util.Enumeration;
 
 import com.certificate.learning.digitalCertificate.EncryptionDecryptionAES;
-import com.certificate.learning.digitalCertificate.bean.Certificates;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.X509Extensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.x509.X509V3CertificateGenerator;
 
-import java.io.FileOutputStream;
-import java.security.PrivateKey;
-import java.security.Security;
-import java.security.cert.X509Certificate;
-import java.util.Date;
+import com.certificate.learning.digitalCertificate.bean.Certificates;
 
 
 @SuppressWarnings("deprecation")
@@ -30,11 +32,12 @@ public class RenewCertificate {
     public X509Certificate renewCertificate(X509Certificate certificate,PrivateKey privateKey,int renewyears, String alias) throws Exception{
         X509Certificate cert = certificate;
         //no need new keypair generation
+        // GENERATE THE X509 CERTIFICATE
         //all parameters are retained as same
         X509V3CertificateGenerator v3CertGen =  new X509V3CertificateGenerator();
         v3CertGen.setSerialNumber(certificate.getSerialNumber());
         v3CertGen.setIssuerDN(certificate.getIssuerX500Principal());
-        v3CertGen.setNotBefore(new Date(System.currentTimeMillis() - 1000L * 60 * 60 * 24));
+        v3CertGen.setNotBefore(new Date(System.currentTimeMillis()) );
         //expiry date set as asked
         v3CertGen.setNotAfter(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 365*renewyears)));
         v3CertGen.setSubjectDN(certificate.getSubjectX500Principal());

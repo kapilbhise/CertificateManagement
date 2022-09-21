@@ -3,18 +3,31 @@ package com.certificate.learning.digitalCertificate.bean;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
+
+import java.security.cert.Certificate;
 
 @Component
 @Entity
 public class Certificates {
+
+
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String aliasname;
     private String caflag;
+    
+    @Size(max = 4000)
     private String certificatetest;
+    @Size(max = 4000)
     private String privatekey;
+    @Size(max = 4000)
     private String publickey;
     private String mail;
     private String username;

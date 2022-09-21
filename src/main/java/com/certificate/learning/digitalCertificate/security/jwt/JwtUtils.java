@@ -19,7 +19,9 @@ public class JwtUtils {
 	private int jwtExpirationMs;
 	@Value("${jwt.secret}")
 	private String jwtSecret;
-
+	
+	
+	
 	public boolean validateJwtToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

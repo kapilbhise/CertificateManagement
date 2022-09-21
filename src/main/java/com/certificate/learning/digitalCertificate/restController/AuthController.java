@@ -57,7 +57,7 @@ public class AuthController {
 		String jwt = jwtUtils.generateJwtToken(authentication);
 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
+		System.out.println("for console: user successfully signed in!");
 		return ResponseEntity
 				.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail()));
 	}
@@ -82,6 +82,7 @@ public class AuthController {
 				encoder.encode(signUpRequest.getPassword()));
 
 		User result= userRepository.save(user);
+		System.out.println("for console:user registered successfully!");
 
 		return ResponseEntity.ok(new MessageResponse("user registered successfully!"));
 	}

@@ -14,14 +14,15 @@ public interface CertificateService {
     public String generateSelfSignedCertificate(UserForm userForm) throws Exception;
     public String generateCaSignedCertificate(UserForm userForm) throws Exception;
     public String generateSignedCertificate(UserForm userForm);
-    public String generateUnsignedCertificate(UserForm userForm) throws Exception;
     public void notifyExpiry() throws Exception;
 
     public String renewCertificate(RenewForm userForm);
 
     public String validateCertificate(String alias) throws Exception;
     public String getCertificateByAlias(String alias) throws Exception;
+    public String loginUser(LoginForm loginform) throws LoginException;
 
+    public void saveUser(LoginForm loginForm) throws LoginException;
     public String usercerts(String username) throws Exception;
 
 }

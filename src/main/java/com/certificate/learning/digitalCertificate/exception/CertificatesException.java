@@ -14,5 +14,8 @@ public class CertificatesException {
         return new ResponseEntity<String>("Certifcate Not found...",HttpStatus.NOT_FOUND);
     }
 
-
+    @ExceptionHandler(value = LoginException.class)
+    public ResponseEntity<String> loginException (LoginException e){
+        return new ResponseEntity<String>("Login Exception",HttpStatus.NOT_FOUND);
+    }
 }

@@ -1,22 +1,20 @@
 package com.certificate.learning.digitalCertificate;
-
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.binary.Hex.*;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.io.ByteArrayInputStream;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.io.ByteArrayOutputStream;
+import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
+import javax.crypto.*;
+
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 public class EncryptionDecryptionAES {
-
+    //static final private String orginalMessage = "MIICSjCCAbOgAwIBAgIGAYMyid5OMA0GCSqGSIb3DQEBCwUAMF4xDTALBgNVBAMMBGNhIE8xCjAIBgNVBAcMAUwxCzAJBgNVBAgMAmlsMQowCAYDVQQGEwFjMSgwJgYJKoZIhvcNAQkBFhljYWNlcnRpZmljYXRlQGFiYy5pYm0uY29tMB4XDTIyMDkxMTE2MzAzOVoXDTMyMDkwOTE2MzAzOVowXjENMAsGA1UEAwwEY2EgTzEKMAgGA1UEBwwBTDELMAkGA1UECAwCaWwxCjAIBgNVBAYTAWMxKDAmBgkqhkiG9w0BCQEWGWNhY2VydGlmaWNhdGVAYWJjLmlibS5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANVbGG50m9gTJpyqEQ4Fd+bXXLmBwbN7Le1gii8XmKbB5pNTKrMby/M9K68ugokqUhNSL6lOK971+qOjhiu51NOMqjo1HmDp30PsRoSQqSW3qWC8ZpiuekVzH+TIxPhOkzBg950Pz9ez+rjPDPc7IIC2zdBkTh8Pv647s3TCzG4RAgMBAAGjEzARMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADgYEAZ9T4mmQVM8gJ2Ppfj8prlA5XEahnfW6Pp1w3vhSnsEe2JdgUoX7k6YaKFBty5EsVGJ38+aEhw3RNNXN4GaiSYmWPHUccqHoe/j5V4u4O/3nTlr/gA7xyGnIZ/WlNU6pkANZDL5hjiZGuhyX7kX/Tg/AraQLEQmp5H+P4UULFJwQ=";
     static Cipher cipher;
 
     static {

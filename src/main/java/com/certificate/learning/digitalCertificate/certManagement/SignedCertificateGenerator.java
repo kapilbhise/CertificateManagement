@@ -1,6 +1,14 @@
 package com.certificate.learning.digitalCertificate.certManagement;
 
-import com.certificate.learning.digitalCertificate.CertificateUtils;
+import java.io.*;
+
+import java.math.BigInteger;
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.util.Date;
+import java.util.Enumeration;
+
 import com.certificate.learning.digitalCertificate.EncryptionDecryptionAES;
 import com.certificate.learning.digitalCertificate.bean.Certificates;
 import org.bouncycastle.asn1.x509.BasicConstraints;
@@ -10,23 +18,18 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.x509.X509V3CertificateGenerator;
 
-import java.io.FileOutputStream;
-import java.math.BigInteger;
-import java.security.*;
-import java.security.cert.X509Certificate;
-import java.util.Date;
-
 
 @SuppressWarnings("deprecation")
 public class SignedCertificateGenerator {
 
 
     public Certificates certificates1 = new Certificates();
-
-    private static final String CERTIFICATE_ALGORITHM = CertificateUtils.CERTIFICATE_ALGORITHM;
-
-    private static final int CERTIFICATE_BITS = CertificateUtils.CERTIFICATE_BITS;
-    private static final double Issue_Years = CertificateUtils.Issue_Years;
+    private static final String CERTIFICATE_ALIAS = "signedcert";
+    private static final String CERTIFICATE_ALGORITHM = "RSA";
+    private static final String CERTIFICATE_NAME = "src/main/java/com/certificate/learning/digitalCertificate/certest/signedcert.test";
+    private static final int CERTIFICATE_BITS = 1024;
+    private static int YEARS=2;
+    private static int DAYS=9;
 
     static {
         // adds the Bouncy castle provider to java security
@@ -45,8 +48,8 @@ public class SignedCertificateGenerator {
         v3CertGen.setSerialNumber(BigInteger.valueOf(System.currentTimeMillis()));
         //issuer is ca cerificate
         v3CertGen.setIssuerDN(certificate.getIssuerX500Principal());
-        v3CertGen.setNotBefore(new Date(System.currentTimeMillis() - 1000L * 60 * 60 * 24));
-        v3CertGen.setNotAfter(new Date((long) (System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 365*Issue_Years))));
+        v3CertGen.setNotBefore(new Date(System.currentTimeMillis()));
+        v3CertGen.setNotAfter(new Date(System.currentTimeMillis() +(1000L * 60 * 60 * 24 * 365*YEARS)));
         //designation name contents are passed while method call
         v3CertGen.setSubjectDN(new X509Principal(Designation_Name));
         v3CertGen.setPublicKey(keyPair.getPublic());
